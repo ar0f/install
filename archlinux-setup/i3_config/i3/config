@@ -249,7 +249,7 @@ gaps inner 15
 smart_gaps on
 
 # Application shortcut
-bindsym $mod+b exec chromium
+bindsym $mod+b exec google-chrome-stable
 bindsym $mod+n exec thunar
 
 # Rofi key bind
