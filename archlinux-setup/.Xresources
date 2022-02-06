@@ -1,0 +1,73 @@
+!! ~/.Xresources
+!!
+!! Apply config command.
+!! xrdb -merge ~/.Xresources
+
+URxvt.perl-ext:
+URxvt.perl-ext-common:
+
+
+URxvt.perl-ext-common:      xim-onthespot
+URxvt.inputMethod:          fcitx
+URxvt*preeditType:          OnTheSpot
+
+URxvt.clipboard.autocopy: true
+
+
+! disable scroll
+!URxvt.secondaryScreen: 1
+!URxvt.secondaryScroll: 0
+URxvt.scrollBar: false
+
+URxvt.geometry:             96x32
+URxvt.scrollBar_right:      false
+URxvt.scrollBar_floating:   false
+URxvt.scrollstyle:          plain
+URxvt.cursorBlink:          true
+URxvt.cursorUnderline:      true
+URxvt.pointerBlank:         true
+URxvt.visualBell:           true
+URxvt.saveLines:            3000
+URxvt.fading:               40
+URxvt.transparent:          true
+URxvt.shading:              20
+URxvt.saveLines:            3000
+
+URxvt.font:                 xft:HackGenNerd Console-12
+
+URxvt.letterSpace:          -1
+!URxvt.lineSpace:            0
+
+! Transparency
+urxvt*depth: 32
+!urxvt*background: rgba:0000/0000/0000/c800
+urxvt*background: rgba:0000/0000/0000/E600
+
+urxvt*foreground:           #666699
+urxvt*cursorColor:          #6699CC
+urxvt*colorBD:              #CCCCFF
+
+!Visiblue
+urxvt*color0:               #333366
+urxvt*color8:               #333399
+
+urxvt*color1:               #6666CC
+urxvt*color9:               #9999FF
+
+urxvt*color2:               #0099CC
+urxvt*color10:              #00CCFF
+
+urxvt*color3:               #3366CC
+urxvt*color11:              #6699FF
+
+urxvt*color4:               #006699
+urxvt*color12:              #0099CC
+
+urxvt*color5:               #0066FF
+urxvt*color13:              #0099FF
+
+urxvt*color6:               #669999
+urxvt*color14:              #66CCCC
+
+urxvt*color7:               #99CCCC
+urxvt*color15:              #CCFFFF
