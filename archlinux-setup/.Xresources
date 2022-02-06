@@ -28,12 +28,12 @@ URxvt.cursorUnderline:      true
 URxvt.pointerBlank:         true
 URxvt.visualBell:           true
 URxvt.saveLines:            3000
-URxvt.fading:               40
+URxvt.fading:               5
 URxvt.transparent:          true
-URxvt.shading:              20
+URxvt.shading:              15
 URxvt.saveLines:            3000
 
-URxvt.font:                 xft:HackGenNerd Console-12
+URxvt.font:                 xft:HackGen35Nerd Console-12
 
 URxvt.letterSpace:          -1
 !URxvt.lineSpace:            0

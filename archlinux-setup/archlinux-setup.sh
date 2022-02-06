@@ -46,7 +46,7 @@ sudo pacman -Syy
 
 # Common
 sudo pacman -Syu $SKIP_ASK
-sudo pacman -S base-devel vi vim wget git unzip $SKIP_ASK
+sudo pacman -S base-devel vi vim wget git unzip inetutils $SKIP_ASK
 sudo pacman -S rxvt-unicode $SKIP_ASK
 
 # man
