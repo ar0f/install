@@ -249,7 +249,10 @@ sudo systemctl enable sshd
 sudo systemctl enable ufw
 
 
-###################### THEME SETUP ######################
+###################### USER SETUP ######################
+# Vim Vundle Plugin Manager
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 # Copy font
 FONT_DIR="$HOME/.local/share/fonts"
 if [[ -d $FONT_DIR ]]; then
