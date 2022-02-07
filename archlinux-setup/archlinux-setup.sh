@@ -5,6 +5,8 @@
 #curl -sL https://raw.githubusercontent.com/picodotdev/alis/master/download.sh | bash
 #curl -O https://raw.githubusercontent.com/ar0f/install/main/alis.conf
 #./alis.sh
+#
+# [WARNING] Execute script will delete the home directory. check line: 244-248
 
 ##################################################
 # check root. for makepkg command.
@@ -69,12 +71,6 @@ makepkg -si $SKIP_ASK
 cd ..
 rm -rf paru
 paru
-
-# English Directory
-# [WARNING!] all home directories have been deleted.
-readlink -f $HOME/* | sed -e 's!'$ABS_PATH'!!g' | sed '/^$/d' | xargs -n 1 rm -rf
-sudo pacman -S xdg-user-dirs $SKIP_ASK
-LC_ALL=C xdg-user-dirs-update --force
 
 # i3 Setup
 #alise.sh: i3-gaps i3blocks i3lock i3status dmenu rxvt-unicode lightdm lightdm-gtk-greeter xorg-server
@@ -244,6 +240,12 @@ cp -rf $ABS_PATH/i3_config/* $HOME/.config/
 
 chmod +x $HOME/.config/**.sh
 chmod +x $HOME/.config/rofi/bin/*
+
+# English Directory
+# [WARNING!] all home directories have been deleted.
+readlink -f $HOME/* | sed -e 's!'$ABS_PATH'!!g' | sed '/^$/d' | xargs -n 1 rm -rf
+sudo pacman -S xdg-user-dirs $SKIP_ASK
+LC_ALL=C xdg-user-dirs-update --force
 
 
 ###################### CLEAR ######################
