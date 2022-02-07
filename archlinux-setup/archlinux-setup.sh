@@ -6,7 +6,21 @@
 #curl -O https://raw.githubusercontent.com/ar0f/install/main/alis.conf
 #./alis.sh
 #
-# [WARNING] Execute script will delete the home directory. check line: 244-248
+# [WARNING] Execute script will delete the home directory. [-f] to disable it.
+
+
+##################################################
+CMDNAME=$(basename $0)
+ABS_PATH=$(cd $(dirname ${0}) && pwd)
+LOG_STDOUT="$HOME/.ARCH-SETUP-STDOUT.log"
+LOG_STDERR="$HOME/.ARCH-SETUP-STDERR.log"
+
+# CONFIG
+SKIP_ASK="--noconfirm --needed" # Pacman skip confirm in install.
+COUNTRY="Japan"
+KEYMAP="jp106"
+KEY="jp"
+
 
 ##################################################
 # check root. for makepkg command.
@@ -15,23 +29,46 @@ if [ ${EUID:-${UID}} = 0 ]; then
 	exit 1
 fi
 
-echo -e "\n[+] SETUP INITIATING...\n\n"
+function Usage() {
+    echo -e "Usage: $CMDNAME [FLAG: -l | enable logging] [FLAG: -f | skip rename $HOME]"
+    exit 1
+}
 
-# Logging
-#exec 2>> stderr.log 1> >(tee -a stdout.log)
+while getopts lfh arg; do
+    case $arg in
+        "l") FLG_L="TRUE" ;;
+        "f") FLG_F="TRUE" ;;
+        "h") Usage ;;
+        *) Usage;;
+    esac
+done
 
+echo -e "\n[+] SETUP INITIATING..."
 
-##################################################
-ABS_PATH=$(cd $(dirname ${0}) && pwd)
-SKIP_ASK="--noconfirm --needed" # Pacman skip confirm in install.
-COUNTRY="Japan"
-KEYMAP="jp106"
-KEY="jp"
+if [ "$FLG_L" = "TRUE" ]; then
+    echo -e "[+] ENABLE: Log output STDOUT:"$LOG_STDOUT" STDERR:"$LOG_STDERR""
+    exec 2>> $LOG_STDERR 1> >(tee -a $LOG_STDOUT)
+fi
+
+if [ "$FLG_F" = "TRUE" ]; then
+    function RenameHome() {
+        :
+    }
+else
+    echo -e "[+] ENABLE: Home directory rename."
+    function RenameHome() {
+        # English Directory
+        # [WARNING!] all home directories have been deleted.
+        readlink -f $HOME/* | sed -e 's!'$ABS_PATH'!!g' | sed '/^$/d' | xargs -n 1 rm -rf
+        sudo pacman -S xdg-user-dirs $SKIP_ASK
+        LC_ALL=C xdg-user-dirs-update --force
+    }
+fi
 
 
 ###################### INIT ######################
 # makepkg: Parallel compil
-echo -e "[+] set MAKEFLAGS = $(nproc) >> /etc/makepkg.conf"
+echo -e "[+] SET MAKEFLAGS = $(nproc) >> /etc/makepkg.conf"
 echo -e "\nMAKEFLAGS=\"-j $(nproc)\"" | sudo tee -a /etc/makepkg.conf
 
 # Set keyboard
@@ -49,7 +86,6 @@ sudo pacman -Syy
 # Common
 sudo pacman -Syu $SKIP_ASK
 sudo pacman -S base-devel vi vim wget git unzip inetutils $SKIP_ASK
-sudo pacman -S rxvt-unicode $SKIP_ASK
 
 # man
 sudo pacman -S man $SKIP_ASK
@@ -79,6 +115,10 @@ sudo pacman -Rs i3blocks dmenu $SKIP_ASK
 
 
 ###################### COMMON SYSTEM ######################
+# Terminal
+sudo pacman -S xfce4-terminal $SKIP_ASK
+#sudo pacman -S rxvt-unicode $SKIP_ASK
+
 # Setting Tool
 sudo pacman -S lxappearance $SKIP_ASK
 
@@ -239,13 +279,11 @@ sudo chmod +x /usr/local/bin/run_urxvt
 cp -rf $ABS_PATH/i3_config/* $HOME/.config/
 
 chmod +x $HOME/.config/**.sh
+chmod +x $HOME/.config/polybar/**.sh
 chmod +x $HOME/.config/rofi/bin/*
 
-# English Directory
-# [WARNING!] all home directories have been deleted.
-readlink -f $HOME/* | sed -e 's!'$ABS_PATH'!!g' | sed '/^$/d' | xargs -n 1 rm -rf
-sudo pacman -S xdg-user-dirs $SKIP_ASK
-LC_ALL=C xdg-user-dirs-update --force
+# Rename Home Dir to English
+RenameHome
 
 
 ###################### CLEAR ######################
