@@ -92,6 +92,9 @@ sudo pacman -S ufw $SKIP_ASK
 # OpenSSH Server
 sudo pacman -S openssh $SKIP_ASK
 
+# OpenVPN
+sudo pacman -S openvpn $SKIP_ASK
+
 
 ###################### HARDWARE ######################
 # Network
@@ -123,6 +126,9 @@ sudo pacman -S code $SKIP_ASK
 
 # GIMP (GNU Image Manipulation Program)
 sudo pacman -S gimp $SKIP_ASK
+
+# VLC Media Player
+sudo pacman -S vlc $SKIP_ASK
 
 # Notification deamon
 sudo pacman -S dunst $SKIP_ASK
@@ -170,6 +176,7 @@ sudo fc-cache -f -v
 
 # Cursors
 sudo pacman -S capitaine-cursors $SKIP_ASK
+paru -S volantes-cursors $SKIP_ASK
 
 # Icon
 sudo pacman -S papirus-icon-theme $SKIP_ASK
