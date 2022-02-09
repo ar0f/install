@@ -264,7 +264,7 @@ fi
 sudo fc-cache -f -v
 
 # Copy GTK3.0 settings.ini
-cp -rf $ABS_PATH/gtk-3.0 $HOME/
+cp -rf $ABS_PATH/gtk-3.0 $HOME/.config/
 sudo ln -s $HOME/.config/gtk-3.0/settings.ini /etc/gtk-3.0/settings.ini
 
 # Copy .xprofile
